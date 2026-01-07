@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-SRC = src/utils.c
-SRC_BONUS = src/utils.c
+SRC = src/push_swap.c
+SRC_BONUS = src/push_swap.c
 
 SRC_USED = $(SRC)
 
