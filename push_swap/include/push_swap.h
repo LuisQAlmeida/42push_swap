@@ -28,8 +28,10 @@ typedef struct s_stacks
 	t_stack	b;
 }	t_stacks;
 
-/******************** STACK OPERATIONS: *******************/
+/******************** STACK UTILS *************************/
 void	stack_init(t_stack *stack);
+
+/******************** STACK OPERATIONS: *******************/
 void	swap_a(t_stacks *stacks, int print);
 void	swap_b(t_stacks *stacks, int print);
 void	swap_s(t_stacks *stacks, int print);
