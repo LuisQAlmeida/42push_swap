@@ -26,6 +26,34 @@ void	stack_clear(t_stack *stack)
 	stack_init(stack);
 }
 
+void	stack_push_top(t_stack *stack, t_node *node)
+{
+	if (!stack || !node)
+		return ;
+	node->prev = NULL;
+	node->next = stack->top;
+	if (stack->top)
+		stack->top->prev = node;
+	stack->top = node;
+	if (stack->bot == NULL)
+		stack->bot = node;
+	stack->size++;
+}
+
+void	stack_push_bot(t_stack *stack, t_node *node)
+{
+	if (!stack || !node)
+		return ;
+	node->next = NULL;
+	node->prev = stack->bot;
+	if (stack->bot)
+		stack->bot->next = node;
+	stack->bot = node;
+	if (stack->top == NULL)
+		stack->top = node;
+	stack->size++;
+}
+
 t_node	*node_init(int value)
 {
 	t_node	*node;

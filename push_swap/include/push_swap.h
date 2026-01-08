@@ -31,6 +31,8 @@ typedef struct s_stacks
 /******************** STACK UTILS *************************/
 void	stack_init(t_stack *stack);
 void	stack_clear(t_stack *stack);
+void	stack_push_top(t_stack *stack, t_node *node);
+void	stack_push_bot(t_stack *stack, t_node *node);
 t_node	*node_init(int value);
 
 /******************** STACK OPERATIONS: *******************/
