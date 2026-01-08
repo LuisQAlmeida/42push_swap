@@ -45,9 +45,9 @@ void	push_a(t_stacks *stacks, int print);
 void	push_b(t_stacks *stacks, int print);
 void	rot_a(t_stacks *stacks, int print);
 void	rot_b(t_stacks *stacks, int print);
-void	rot_s(t_stacks *stacks, int print);
+void	rot_r(t_stacks *stacks, int print);
 void	rrot_a(t_stacks *stacks, int print);
 void	rrot_b(t_stacks *stacks, int print);
-void	rrot_s(t_stacks *stacks, int print);
+void	rrot_r(t_stacks *stacks, int print);
 
 #endif
