@@ -54,6 +54,42 @@ void	stack_push_bot(t_stack *stack, t_node *node)
 	stack->size++;
 }
 
+t_node	*stack_pop_top(t_stack *stack)
+{
+	t_node	*node;
+
+	if (!stack || stack->size == 0)
+		return (NULL);
+	node = stack->top;
+	stack->top = node->next;
+	if (stack->top)
+		stack->top->prev = NULL;
+	else
+		stack->bot = NULL;
+	node->next = NULL;
+	node->prev = NULL;
+	stack->size--;
+	return (node);
+}
+
+t_node	*stack_pop_bot(t_stack *stack)
+{
+	t_node	*node;
+
+	if (stack || stack->size == 0)
+		return (NULL);
+	node = stack->bot;
+	stack->bot = node->prev;
+	if (stack->bot)
+		stack->bot->next = NULL;
+	else
+		stack->top = NULL;
+	node->next = NULL;
+	node->prev = NULL;
+	stack->size--;
+	return (node);
+}
+
 t_node	*node_init(int value)
 {
 	t_node	*node;
