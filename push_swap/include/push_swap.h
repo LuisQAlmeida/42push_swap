@@ -30,6 +30,7 @@ typedef struct s_stacks
 
 /******************** STACK UTILS *************************/
 void	stack_init(t_stack *stack);
+void	stack_clear(t_stack *stack);
 
 /******************** STACK OPERATIONS: *******************/
 void	swap_a(t_stacks *stacks, int print);
