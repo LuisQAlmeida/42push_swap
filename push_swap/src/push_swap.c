@@ -3,8 +3,8 @@
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
-	(void)argv;
 
+	(void)argv;
 	if (argc == 1)
 		return (0);
 	stack_init(&stacks.a);

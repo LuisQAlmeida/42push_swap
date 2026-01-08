@@ -25,3 +25,17 @@ void	stack_clear(t_stack *stack)
 	}
 	stack_init(stack);
 }
+
+t_node	*node_init(int value)
+{
+	t_node	*node;
+
+	node = (t_node *)malloc(sizeof(t_node));
+	if (!node)
+		return (NULL);
+	node->value = value;
+	node->index = -1;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
+}
