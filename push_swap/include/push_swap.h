@@ -29,6 +29,7 @@ typedef struct s_stacks
 }	t_stacks;
 
 /******************** STACK OPERATIONS: *******************/
+void	stack_init(t_stack *stack);
 void	swap_a(t_stacks *stacks, int print);
 void	swap_b(t_stacks *stacks, int print);
 void	swap_s(t_stacks *stacks, int print);
