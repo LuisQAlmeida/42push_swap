@@ -19,3 +19,25 @@ static void	stack_swap(t_stack *stack)
 	if (stack->bot == second)
 		stack->bot = first;
 }
+
+void	swap_a(t_stacks *stacks, int print)
+{
+	stack_swap(&stacks->a);
+	if (print)
+		write(1, "sa\n", 3);
+}
+
+void	swap_b(t_stacks *stacks, int print)
+{
+	stack_swap(&stacks->b);
+	if (print)
+		write(1, "sb\n", 3);
+}
+
+void	swap_s(t_stacks *stacks, int print)
+{
+	stack_swap(&stacks->a);
+	stack_swap(&stacks->b);
+	if (print)
+		write(1, "ss\n", 3);
+}
