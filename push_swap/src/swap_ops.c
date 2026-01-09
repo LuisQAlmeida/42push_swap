@@ -8,7 +8,7 @@ static void	stack_swap(t_stack *stack)
 	if (!stack || stack->size < 2)
 		return ;
 	first = stack->top;
-	second = stack->next;
+	second = first->next;
 	first->next = second->next;
 	if (second->next)
 		second->next->prev = first;
