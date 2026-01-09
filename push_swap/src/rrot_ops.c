@@ -18,7 +18,7 @@ void	rrot_b(t_stacks *stacks, int print)
 
 	if (stacks->b.size < 2)
 		return ;
-	node = stacks_pop_bot(&stacks->b);
+	node = stack_pop_bot(&stacks->b);
 	stack_push_top(&stacks->b, node);
 	if (print)
 		write(1, "rrb\n", 4);
