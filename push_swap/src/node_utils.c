@@ -64,7 +64,7 @@ t_node	*stack_pop_bot(t_stack *stack)
 {
 	t_node	*node;
 
-	if (stack || stack->size == 0)
+	if (!stack || stack->size == 0)
 		return (NULL);
 	node = stack->bot;
 	stack->bot = node->prev;
