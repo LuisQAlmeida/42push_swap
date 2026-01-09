@@ -30,23 +30,25 @@ typedef struct s_stacks
 
 typedef enum e_error
 {
-	ERR_NONE = 0,
-	ERR_PARSE,
+	ERR_PARSE = 1,
 	ERR_OVERFLOW,
 	ERR_DUPLICATE,
 	ERR_MALLOC
 }	t_error;
 
-/******************** STACK UTILS *************************/
+/******************** STACK UTILS: ************************/
 void	stack_init(t_stack *stack);
 void	stack_clear(t_stack *stack);
 
-/******************** NODE UTILS **************************/
+/******************** NODE UTILS: *************************/
 t_node	*node_init(int value);
 t_node	*stack_pop_top(t_stack *stack);
 t_node	*stack_pop_bot(t_stack *stack);
 void	stack_push_top(t_stack *stack, t_node *node);
 void	stack_push_bot(t_stack *stack, t_node *node);
+
+/******************** ERROR UTILS: ************************/
+void	error_exit(t_stacks *stacks, t_error error);
 
 /******************** STACK OPERATIONS: *******************/
 void	swap_a(t_stacks *stacks, int print);
