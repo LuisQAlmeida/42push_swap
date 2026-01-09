@@ -53,8 +53,8 @@ void	swap_s(t_stacks *stacks, int print)
 		swap_a(stacks, print);
 	else
 	{
-		stack_swap(&stacks->a);
-		stack_swap(&stacks->b);
+		swap_a(stacks, 0);
+		swap_b(stacks, 0);
 		if (print)
 			write(1, "ss\n", 3);
 	}
