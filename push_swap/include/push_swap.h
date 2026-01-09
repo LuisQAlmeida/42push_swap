@@ -28,6 +28,15 @@ typedef struct s_stacks
 	t_stack	b;
 }	t_stacks;
 
+typedef enum e_error
+{
+	ERR_NONE = 0,
+	ERR_PARSE,
+	ERR_OVERFLOW,
+	ERR_DUPLICATE,
+	ERR_MALLOC
+}	t_error;
+
 /******************** STACK UTILS *************************/
 void	stack_init(t_stack *stack);
 void	stack_clear(t_stack *stack);
