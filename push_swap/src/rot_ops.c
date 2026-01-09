@@ -26,8 +26,22 @@ void	rot_b(t_stacks *stacks, int print)
 
 void	rot_r(t_stacks *stacks, int print)
 {
-	rot_a(stacks, 0);
-	rot_b(stacks, 0);
-	if (print)
-		write(1, "rr\n", 3);
+	int	valid_ra;
+	int	valid_rb;
+
+	valid_ra = (stacks->a.size > 1);
+	valid_rb = (stacks->b.size > 1);
+	if (!valid_ra && !valid_rb)
+		return ;
+	if (!valid_ra && valid_rb)
+		rot_b(stacks, print);
+	else if (valid_ra && !valid_rb)
+		rot_a(stacks, print);
+	else
+	{
+		rot_a(stacks, 0);
+		rot_b(stacks, 0);
+		if (print)
+			write(1, "rr\n", 3);
+	}
 }
