@@ -22,6 +22,8 @@ static void	stack_swap(t_stack *stack)
 
 void	swap_a(t_stacks *stacks, int print)
 {
+	if (stacks->a.size < 2)
+		return ;
 	stack_swap(&stacks->a);
 	if (print)
 		write(1, "sa\n", 3);
@@ -29,6 +31,8 @@ void	swap_a(t_stacks *stacks, int print)
 
 void	swap_b(t_stacks *stacks, int print)
 {
+	if (stacks->b.size < 2)
+		return ;
 	stack_swap(&stacks->b);
 	if (print)
 		write(1, "sb\n", 3);
@@ -36,8 +40,22 @@ void	swap_b(t_stacks *stacks, int print)
 
 void	swap_s(t_stacks *stacks, int print)
 {
-	stack_swap(&stacks->a);
-	stack_swap(&stacks->b);
-	if (print)
-		write(1, "ss\n", 3);
+	int	valid_sa;
+	int	valid_sb;
+
+	valid_sa = (stacks->a.size > 1);
+	valid_sb = (stacks->b.size > 1);
+	if (!valid_sa && !valid_sb)
+		return ;
+	if (!valid_sa && valid_sb)
+		swap_b(stacks, print);
+	else if (valid_sa && !valid_sb)
+		swap_a(stacks, print);
+	else
+	{
+		stack_swap(&stacks->a);
+		stack_swap(&stacks->b);
+		if (print)
+			write(1, "ss\n", 3);
+	}
 }
