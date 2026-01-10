@@ -10,14 +10,14 @@ int	check_dups(t_stack *stack)
 	cur = stack->top;
 	while (cur)
 	{
-		nxt = cur->nxt;
+		nxt = cur->next;
 		while (nxt)
 		{
 			if (nxt->value == cur->value)
 				return (1);
 			nxt = nxt->next;
 		}
-		cur = cur->nxt;
+		cur = cur->next;
 	}
 	return (0);
 }
