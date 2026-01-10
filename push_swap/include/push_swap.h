@@ -55,6 +55,7 @@ int	ft_atoi_ps(const char *str, t_stacks *stacks);
 void	ft_split_free(char **array);
 
 /******************** PARSING: ****************************/
+int	has_dups(t_stack *stack);
 void	parse_args(t_stacks *stacks, int argc, char **argv);
 
 /******************** STACK OPERATIONS: *******************/
