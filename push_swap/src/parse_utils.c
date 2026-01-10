@@ -44,3 +44,18 @@ int	ft_atoi_ps(const char *str, t_stacks *stacks)
 		error_exit(stacks, ERR_PARSE);
 	return ((int)(sign * result));
 }
+
+void	ft_split_free(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}

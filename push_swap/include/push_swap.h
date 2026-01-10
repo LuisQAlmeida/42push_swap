@@ -52,6 +52,7 @@ void	error_exit(t_stacks *stacks, t_error error);
 
 /******************** PARSING UTILS: **********************/
 int	ft_atoi_ps(const char *str, t_stacks *stacks);
+void	ft_split_free(char **array);
 
 /******************** STACK OPERATIONS: *******************/
 void	swap_a(t_stacks *stacks, int print);
