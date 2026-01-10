@@ -9,13 +9,11 @@ int	main(int argc, char **argv)
 	stack_init(&stacks.a);
 	stack_init(&stacks.b);
 	parse_args(&stacks, argc, argv);
-	if (check_sort(&stacks.a))
+	if (!check_sort(&stacks.a))
 	{
-		stack_clear(&stacks->a);
-		stack_clear(&stacks->b);
-		return (0);
+		//ALGORYTHM
 	}
-	stack_clear(&stacks->a);
-	stack_clear(&stacks->b);
+	stack_clear(&stacks.a);
+	stack_clear(&stacks.b);
 	return (0);
 }
