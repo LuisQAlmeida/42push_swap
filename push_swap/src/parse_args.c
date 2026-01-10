@@ -28,3 +28,15 @@ static void	parse_single_arg(t_stacks *stacks, char *str)
 	}
 	ft_split_free(nodes);
 }
+
+void	parse_args(t_stacks *stacks, int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		parse_single_arg(stacks, argv[i]);
+		i++;
+	}
+}
