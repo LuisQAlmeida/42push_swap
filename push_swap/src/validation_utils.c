@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	has_dups(t_stack *stack)
+int	check_dups(t_stack *stack)
 {
 	t_node	*cur;
 	t_node	*nxt;
@@ -20,4 +20,20 @@ int	has_dups(t_stack *stack)
 		cur = cur->nxt;
 	}
 	return (0);
+}
+
+int	check_sort(t_stack *stack)
+{
+	t_node	*cur;
+
+	if (!stack || stack->size < 2)
+		return (1);
+	cur = stack->top;
+	while (cur->next)
+	{
+		if (cur->value > cur->next->value)
+			return (0);
+		cur = cur->next;
+	}
+	return (1);
 }
