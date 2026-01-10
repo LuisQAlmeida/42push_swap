@@ -8,12 +8,12 @@ static void	parse_single_arg(t_stacks *stacks, char *str)
 	t_node	*node;
 
 	nodes = ft_split(str, ' ');
-	if (!split)
+	if (!nodes)
 		error_exit(stacks, ERR_MALLOC);
 	i = 0;
 	while (nodes[i])
 	{
-		if (nodes[i][0])
+		if (nodes[i][0] != '\0')
 		{
 			value = ft_atoi_ps(nodes[i], stacks);
 			node = node_init(value);
