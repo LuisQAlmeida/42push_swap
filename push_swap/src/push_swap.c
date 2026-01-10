@@ -4,10 +4,12 @@ int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
 
-	(void)argv;
 	if (argc == 1)
 		return (0);
 	stack_init(&stacks.a);
 	stack_init(&stacks.b);
+	parse_args(&stacks, argc, argv);
+	stack_clear(&stacks->a);
+	stack_clear(&stacks->b);
 	return (0);
 }
