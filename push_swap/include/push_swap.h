@@ -50,6 +50,9 @@ void	stack_push_bot(t_stack *stack, t_node *node);
 /******************** ERROR UTILS: ************************/
 void	error_exit(t_stacks *stacks, t_error error);
 
+/******************** PARSING UTILS: **********************/
+int	ft_atoi_ps(const char *str, t_stacks *stacks);
+
 /******************** STACK OPERATIONS: *******************/
 void	swap_a(t_stacks *stacks, int print);
 void	swap_b(t_stacks *stacks, int print);
