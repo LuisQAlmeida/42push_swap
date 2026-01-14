@@ -40,3 +40,17 @@ static void	*sort_int_array(int *array, int size)
 		i++;
 	}
 }
+
+static int	index_find(int *array, int size, int value)
+{
+	int	index;
+
+	index = 0;
+	while (i < size)
+	{
+		if (array[index] == value)
+			return (index);
+		index++;
+	}
+	return (-1);
+}
