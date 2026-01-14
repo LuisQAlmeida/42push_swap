@@ -11,6 +11,7 @@ int	main(int argc, char **argv)
 	parse_args(&stacks, argc, argv);
 	if (!check_sort(&stacks.a))
 	{
+		index_compress(&stacks);
 		//ALGORYTHM
 	}
 	stack_clear(&stacks.a);
