@@ -51,12 +51,12 @@ void	stack_push_bot(t_stack *stack, t_node *node);
 void	error_exit(t_stacks *stacks, t_error error);
 
 /******************** PARSING UTILS: **********************/
-int	ft_atoi_ps(const char *str, t_stacks *stacks);
+int		ft_atoi_ps(const char *str, t_stacks *stacks);
 void	ft_split_free(char **array);
 
 /******************** PARSING: ****************************/
-int	check_dups(t_stack *stack);
-int	check_sort(t_stack *stack);
+int		check_dups(t_stack *stack);
+int		check_sort(t_stack *stack);
 void	parse_args(t_stacks *stacks, int argc, char **argv);
 
 /******************** STACK OPERATIONS: *******************/
