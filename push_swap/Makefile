@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-SRC = src/push_swap.c src/stack_utils.c src/node_utils.c src/error_utils.c src/parse_utils.c src/validation_utils.c src/parse_args.c src/swap_ops.c src/push_ops.c src/rot_ops.c src/rrot_ops.c
-SRC_BONUS = src/push_swap.c src/stack_utils.c src/node_utils.c src/error_utils.c src/parse_utils.c src/validation_utils.c src/parse_args.c src/swap_ops.c src/push_ops.c src/rot_ops.c src/rrot_ops.c
+SRC = src/push_swap.c src/stack_utils.c src/node_utils.c src/error_utils.c src/parse_utils.c src/validation_utils.c src/index_utils.c src/parse_args.c src/swap_ops.c src/push_ops.c src/rot_ops.c src/rrot_ops.c
+SRC_BONUS = src/push_swap.c src/stack_utils.c src/node_utils.c src/error_utils.c src/parse_utils.c src/validation_utils.c src/index_utils.c src/parse_args.c src/swap_ops.c src/push_ops.c src/rot_ops.c src/rrot_ops.c
 
 SRC_USED = $(SRC)
 
