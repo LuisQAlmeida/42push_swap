@@ -19,3 +19,24 @@ static int	*stack_to_array(t_stack *stack, int size)
 	}
 	return (array);
 }
+
+static int	*sort_int_array(int *array, int size)
+{
+	int	i;
+	int	j;
+	int	key;
+
+	i = 1;
+	while (i < size)
+	{
+		key = array[i];
+		j = i - 1;
+		while (j >= 0 && array[j] > key)
+		{
+			array[j + 1] = array[j];
+			j--;
+		}
+		array[j + 1] = key;
+		i++;
+	}
+}
