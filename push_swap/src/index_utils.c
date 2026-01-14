@@ -20,7 +20,7 @@ static int	*stack_to_array(t_stack *stack, int size)
 	return (array);
 }
 
-static void	*sort_int_array(int *array, int size)
+static void	sort_int_array(int *array, int size)
 {
 	int	i;
 	int	j;
@@ -46,11 +46,36 @@ static int	index_find(int *array, int size, int value)
 	int	index;
 
 	index = 0;
-	while (i < size)
+	while (index < size)
 	{
 		if (array[index] == value)
 			return (index);
 		index++;
 	}
 	return (-1);
+}
+
+void	index_compress(t_stacks *stacks)
+{
+	int		*array;
+	int		size;
+	int		index;
+	t_node	*node;
+
+	size = stacks->a.size;
+	if (size <= 0)
+		return ;
+	array = stack_to_array(&stacks->a, size);
+	if (!array)
+		error_exit(stacks, ERR_MALLOC);
+	sort_int_array(array, size);
+	node = stacks->a.top;
+	while (node)
+	{
+		index = index_find(array, size, node->value);
+		if (index >= 0)
+			node->index = index;
+		node = node->next;
+	}
+	free(array);
 }
