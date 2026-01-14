@@ -72,4 +72,7 @@ void	rrot_a(t_stacks *stacks, int print);
 void	rrot_b(t_stacks *stacks, int print);
 void	rrot_r(t_stacks *stacks, int print);
 
+/******************** INDEX COMPRESSION: ******************/
+void	index_compress(t_stacks *stacks);
+
 #endif
