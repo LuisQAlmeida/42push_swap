@@ -20,7 +20,7 @@ static int	*stack_to_array(t_stack *stack, int size)
 	return (array);
 }
 
-static int	*sort_int_array(int *array, int size)
+static void	*sort_int_array(int *array, int size)
 {
 	int	i;
 	int	j;
