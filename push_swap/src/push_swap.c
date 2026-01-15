@@ -9,11 +9,19 @@ int	main(int argc, char **argv)
 	stack_init(&stacks.a);
 	stack_init(&stacks.b);
 	parse_args(&stacks, argc, argv);
-	if (!check_sort(&stacks.a))
+	if (stacks.a.size == 0 || check_sort(&stacks.a))
 	{
-		index_compress(&stacks);
-		//ALGORYTHM
+		stack_clear(&stacks.a);
+		stack_clear(&stacks.b);
+		return (0);
 	}
+	index_compress(&stacks);
+	if (stacks.a.size <= 3)
+		sort_three(&stacks);
+	else if (stacks.a.size <= 5)
+		sort_five(&stacks);
+	else
+		sort_radix(&stacks);
 	stack_clear(&stacks.a);
 	stack_clear(&stacks.b);
 	return (0);
