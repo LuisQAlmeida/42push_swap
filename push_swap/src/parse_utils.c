@@ -33,10 +33,9 @@ int	ft_atoi_ps(const char *str, t_stacks *stacks)
 		error_exit(stacks, ERR_PARSE);
 	while (ft_isdigit(str[i]))
 	{
-		result = result * 10 + (str[i] - '0');
+		result = result * 10 + (str[i++] - '0');
 		if (sign * result < INT_MIN || sign * result > INT_MAX)
 			error_exit(stacks, ERR_OVERFLOW);
-		i++;
 	}
 	while (ft_isspace(str[i]))
 		i++;
@@ -53,9 +52,6 @@ void	ft_split_free(char **array)
 		return ;
 	i = 0;
 	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
+		free(array[i++]);
 	free(array);
 }
