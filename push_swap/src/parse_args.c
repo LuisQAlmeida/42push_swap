@@ -35,10 +35,7 @@ void	parse_args(t_stacks *stacks, int argc, char **argv)
 
 	i = 1;
 	while (i < argc)
-	{
-		parse_single_arg(stacks, argv[i]);
-		i++;
-	}
+		parse_single_arg(stacks, argv[i++]);
 	if (check_dups(&stacks->a))
 		error_exit(stacks, ERR_DUPLICATE);
 }
