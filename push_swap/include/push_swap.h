@@ -78,5 +78,6 @@ void	index_compress(t_stacks *stacks);
 /******************** SORTING ALGORITHMS: *****************/
 void	sort_three(t_stacks *stacks);
 void	sort_five(t_stacks *stacks);
+void	sort_radix(t_stacks *stacks);
 
 #endif
