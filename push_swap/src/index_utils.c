@@ -6,16 +6,17 @@ static int	*stack_to_array(t_stack *stack, int size)
 	int		i;
 	t_node	*node;
 
+	if (!stack || size <= 0)
+		return (NULL);
 	array = (int *)malloc(sizeof(int) * size);
 	if (!array)
 		return (NULL);
 	i = 0;
 	node = stack->top;
-	while (node)
+	while (node && i < size)
 	{
-		array[i] = node->value;
+		array[i++] = node->value;
 		node = node->next;
-		i++;
 	}
 	return (array);
 }
