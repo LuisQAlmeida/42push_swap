@@ -79,12 +79,20 @@ static void	place_min_idx_top(t_stacks *stacks)
 	min_idx_pos = get_min_idx_pos(&stacks->a);
 	if (min_idx_pos <= size / 2)
 	{
-		while (i++ < min_idx_pos)
+		while (i < min_idx_pos)
+		{
 			rot_a(stacks, 1);
+			i++;
+		}
 	}
 	else
-		while (i++ < size - min_idx_pos)
+	{
+		while (i < size - min_idx_pos)
+		{
 			rrot_a(stacks, 1);
+			i++;
+		}
+	}
 }
 
 void	sort_five(t_stacks *stacks)

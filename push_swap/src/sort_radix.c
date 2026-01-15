@@ -28,13 +28,14 @@ void	sort_radix(t_stacks *stacks)
 	{
 		i = 0;
 		size = stacks->a.size;
-		while (i++ < size)
+		while (i < size)
 		{
 			idx = stacks->a.top->index;
 			if (((idx >> cur_bit) & 1) == 0)
 				push_b(stacks, 1);
 			else
 				rot_a(stacks, 1);
+			i++;
 		}
 		while (stacks->b.size > 0)
 			push_a(stacks, 1);
