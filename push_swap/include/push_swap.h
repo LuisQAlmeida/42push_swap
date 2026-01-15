@@ -75,4 +75,7 @@ void	rrot_r(t_stacks *stacks, int print);
 /******************** INDEX COMPRESSION: ******************/
 void	index_compress(t_stacks *stacks);
 
+/******************** SORTING ALGORITHMS: *****************/
+void	sort_three(t_stacks *stacks);
+
 #endif
