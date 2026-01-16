@@ -338,14 +338,8 @@ In particular, AI was used for:
   - Time & space complexity (Big O / Ω / Θ).
   - Differences between insertion sort, bubble sort, and radix sort.
   - How binary representation relates to radix sorting by bits.
-- Helping design and structure the project:
-  - Organizing the code into multiple `.c` files and a single header.
-  - Designing the `t_node`, `t_stack`, and `t_stacks` structures.
-  - Designing the index compression step and binary radix flow on indices.
-- Reviewing and refining:
-  - Edge cases for parsing and error handling (`ft_atoi_ps`, `parse_args`, `error_exit`).
-  - Correctness of stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rra`, etc.).
-  - Strategies for small sorts (`sort_three`, `sort_five`) and their correctness.
+- Helping design and structure the project.
+- Reviewing and refining.
 
 All final code was:
 
