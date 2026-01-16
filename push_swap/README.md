@@ -6,10 +6,10 @@
 
 `push_swap` is a 42 project whose goal is to sort a list of integers using **two stacks** (`a` and `b`) and a very limited set of allowed operations:
 
-- `sa`, `sb`, `ss` – swap the top elements
-- `pa`, `pb` – push between stacks
-- `ra`, `rb`, `rr` – rotate (top element goes to bottom)
-- `rra`, `rrb`, `rrr` – reverse rotate (bottom element goes to top)
+- `sa`, `sb`, `ss`: swap the top elements
+- `pa`, `pb`: push between stacks
+- `ra`, `rb`, `rr`: rotate (top element goes to bottom)
+- `rra`, `rrb`, `rrr`: reverse rotate (bottom element goes to top)
 
 The challenges are:
 
@@ -166,10 +166,10 @@ typedef struct s_stacks
 }   t_stacks;
 ```
 
-- `value` – original integer value.
-- `index` – compressed index (`0..n-1` after compression).
-- `top` / `bot` – pointers to the top and bottom nodes.
-- `size` – number of elements in the stack.
+- `value`: original integer value.
+- `index`: compressed index (`0..n-1` after compression).
+- `top` / `bot`: pointers to the top and bottom nodes.
+- `size`: number of elements in the stack.
 
 ### Parsing & Validation
 
@@ -210,9 +210,9 @@ On **any** parsing or allocation error, `error_exit`:
 
 3. **Small cases**
 
-   - If `a.size <= 3` → `sort_three(&stacks)`:
+   - If `a.size <= 3` - `sort_three(&stacks)`:
      - Uses hard-coded logic on the 3 indices to sort in minimal moves.
-   - If `a.size <= 5` → `sort_five(&stacks)`:
+   - If `a.size <= 5` - `sort_five(&stacks)`:
      - Repeatedly:
        - Move the smallest element to the top of `a` (with minimal `ra` / `rra`),
        - `pb` to stack `b`.
@@ -316,9 +316,7 @@ At the root of the project:
 
 - **push_swap strategy explanations and common patterns**  
   - “push_swap tutorial” (Ayogun):  
-    <https://medium.com/@ayogun/push-swap-tutorial-fa746e6aba1e>  
-  - “The Push_swap project (42)” – conceptual overview of approaches and optimizations:  
-    <https://dev.to/danyg/the-push-swap-project-42-1o8>
+    <https://medium.com/@ayogun/push-swap-tutorial-fa746e6aba1e>
 
 These materials helped to:
 
@@ -326,9 +324,14 @@ These materials helped to:
 - Compare different approaches (small sorts, radix, chunk strategies),
 - Clarify expectations for move counts on 100 and 500 elements.
 
+### Additional Tools (For Testing)
+- **Random number generator**
+  - Calculator.net: <https://www.calculator.net/random-number-generator.html>
+  Website with tool to generate random numbers.
+
 ### AI Usage
 
-AI (ChatGPT – GPT-5.1) was used as a **learning and design assistant** during the development of this project.  
+AI (ChatGPT - GPT-5.1) was used as a **learning and design assistant** during the development of this project.  
 In particular, AI was used for:
 
 - Clarifying theoretical concepts:
