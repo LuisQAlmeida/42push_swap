@@ -107,10 +107,10 @@ to **stderr** and exits with a non-zero status.
 
 #### Using `checker_linux` for tests
 
-Assuming `checker_linux` is in the same directory as `push_swap`:
+The supplied Linux checker is stored under `tools/`:
 
 ```bash
-ARG="3 2 1" && ./push_swap $ARG | ./checker_linux $ARG
+ARG="3 2 1" && ./push_swap $ARG | ./tools/checker_linux $ARG
 ```
 
 You should see:
@@ -122,7 +122,7 @@ OK
 Another example with random numbers:
 
 ```bash
-ARG=$(seq 1 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | ./checker_linux $ARG
+ARG=$(seq 1 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | ./tools/checker_linux $ARG
 ```
 
 #### Counting operations

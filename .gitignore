@@ -87,3 +87,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Generated push_swap executable
+/push_swap
