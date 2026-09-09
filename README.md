@@ -125,6 +125,46 @@ Another example with random numbers:
 ARG=$(seq 1 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | ./tools/checker_linux $ARG
 ```
 
+#### Reproducible regression suite
+
+The maintained repository includes a deterministic regression suite at:
+
+```text
+tests/regression.sh
+```
+
+Run it from the repository root with the default compiler:
+
+```bash
+./tests/regression.sh
+```
+
+The same suite can be validated independently with Clang:
+
+```bash
+CC=clang ./tests/regression.sh
+```
+
+The suite checks:
+
+- accepted argument forms and integer boundaries;
+- invalid syntax, duplicates and integer overflow;
+- exact stdout, stderr and exit-status behaviour;
+- emitted push_swap operation syntax;
+- replay of the emitted operations to verify that stack A becomes sorted and
+  stack B becomes empty;
+- deterministic small sorting cases and the radix path;
+- a reproducible 100-element input;
+- compatibility with the supplied `tools/checker_linux` validation binary when
+  it is available.
+
+Operation replay is implemented by the repository-owned test suite itself, so
+the external checker is supplementary validation rather than the source of the
+test oracle.
+
+The suite rebuilds the project using the selected compiler and removes generated
+build artefacts when validation finishes.
+
 #### Counting operations
 
 To see both the operations and how many there are:
