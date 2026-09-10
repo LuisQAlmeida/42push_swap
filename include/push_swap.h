@@ -30,7 +30,8 @@ typedef struct s_stacks
 
 typedef enum e_error
 {
-	ERR_PARSE = 1,
+	ERR_NONE = 0,
+	ERR_PARSE,
 	ERR_OVERFLOW,
 	ERR_DUPLICATE,
 	ERR_MALLOC
@@ -51,7 +52,7 @@ void	stack_push_bot(t_stack *stack, t_node *node);
 void	error_exit(t_stacks *stacks, t_error error);
 
 /******************** PARSING UTILS: **********************/
-int		ft_atoi_ps(const char *str, t_stacks *stacks);
+t_error	ft_atoi_ps(const char *str, int *value);
 void	ft_split_free(char **array);
 
 /******************** PARSING: ****************************/

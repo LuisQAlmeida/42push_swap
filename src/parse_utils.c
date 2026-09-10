@@ -17,32 +17,45 @@ static void	spaces_sign(const char *str, int *i, long *sign)
 	}
 }
 
-int	ft_atoi_ps(const char *str, t_stacks *stacks)
+static t_error	parse_number(const char *str, int i, long sign, int *value)
 {
-	int		i;
+	int		digit;
 	long	result;
-	long	sign;
+	long	limit;
 
-	if (!str)
-		error_exit(stacks, ERR_PARSE);
-	i = 0;
 	result = 0;
-	sign = 1;
-	spaces_sign(str, &i, &sign);
-	if (!str[i] || !ft_isdigit(str[i]))
-		error_exit(stacks, ERR_PARSE);
+	limit = INT_MAX;
+	if (sign < 0)
+		limit = -(long)INT_MIN;
 	while (ft_isdigit(str[i]))
 	{
-		result = result * 10 + (str[i] - '0');
-		if (sign * result < INT_MIN || sign * result > INT_MAX)
-			error_exit(stacks, ERR_OVERFLOW);
+		digit = str[i] - '0';
+		if (result > (limit - digit) / 10)
+			return (ERR_OVERFLOW);
+		result = result * 10 + digit;
 		i++;
 	}
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] != '\0')
-		error_exit(stacks, ERR_PARSE);
-	return ((int)(sign * result));
+		return (ERR_PARSE);
+	*value = (int)(sign * result);
+	return (ERR_NONE);
+}
+
+t_error	ft_atoi_ps(const char *str, int *value)
+{
+	int		i;
+	long	sign;
+
+	if (!str || !value)
+		return (ERR_PARSE);
+	i = 0;
+	sign = 1;
+	spaces_sign(str, &i, &sign);
+	if (!str[i] || !ft_isdigit(str[i]))
+		return (ERR_PARSE);
+	return (parse_number(str, i, sign, value));
 }
 
 void	ft_split_free(char **array)
