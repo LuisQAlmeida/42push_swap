@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    name: Regression (${{ matrix.compiler }})
+    runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+          - cc
+          - clang
+
+    env:
+      CC: ${{ matrix.compiler }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Verify compiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v "$CC"
+          "$CC" --version
+
+      - name: Validate regression script syntax
+        shell: bash
+        run: bash -n tests/regression.sh
+
+      - name: Run regression suite
+        shell: bash
+        run: ./tests/regression.sh
+
+      - name: Verify repository cleanliness
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          artifacts="$(
+            find . \
+              -path './.git' -prune -o \
+              -type f \( \
+                -name 'push_swap' -o \
+                -name '*.o' -o \
+                -name '*.a' \
+              \) -print
+          )"
+
+          if [ -n "$artifacts" ]; then
+              printf 'Generated build artifacts remain after validation:\n%s\n' \
+                  "$artifacts" >&2
+              exit 1
+          fi
+
+          repository_status="$(
+              git status --porcelain --untracked-files=all
+          )"
+
+          if [ -n "$repository_status" ]; then
+              printf 'Repository was modified by validation:\n%s\n' \
+                  "$repository_status" >&2
+              exit 1
+          fi
+
+          printf 'PASS: no generated build artifacts remain\n'
+          printf 'PASS: repository remains clean\n'
