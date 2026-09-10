@@ -30,6 +30,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Verify Libft revision
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          expected="0227823923ca15b580a481c3fb929d7f1382f545"
+          actual="$(git -C external/libft rev-parse HEAD)"
+
+          printf 'Expected Libft revision: %s\n' "$expected"
+          printf 'Actual Libft revision:   %s\n' "$actual"
+
+          test "$actual" = "$expected"
 
       - name: Verify compiler
         shell: bash
