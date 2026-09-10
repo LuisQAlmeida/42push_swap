@@ -1,5 +1,7 @@
 # push_swap
 
+[![CI](https://github.com/LuisQAlmeida/42push_swap/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/LuisQAlmeida/42push_swap/actions/workflows/ci.yml)
+
 ## Description
 
 `push_swap` is a 42 project whose goal is to sort a list of integers using **two stacks** (`a` and `b`) and a very limited set of allowed operations:
