@@ -38,7 +38,27 @@ This implementation focuses on:
 - Linux environment
 - `make`
 - `cc` (or another C compiler compatible with `cc`)
-- The provided `libft` inside the `libft/` directory
+- Git
+- Libft, provided through the canonical [`42Libft`](https://github.com/LuisQAlmeida/42Libft) repository and pinned as a Git submodule under `external/libft`
+
+### Clone
+
+Clone the repository together with its pinned Libft dependency:
+
+```bash
+git clone --recurse-submodules git@github.com:LuisQAlmeida/42push_swap.git
+cd 42push_swap
+```
+
+If the repository was cloned without its submodules, initialize them with:
+
+```bash
+git submodule update --init --recursive
+```
+
+The maintained portfolio version uses the `v1.0.0` release of the canonical
+`42Libft` repository. The original completed-project dependency layout remains
+preserved by the `portfolio-baseline-2026-09` tag.
 
 ### Compilation
 
@@ -50,7 +70,7 @@ make
 
 This will:
 
-- Build `libft` as `libft/libft.a`
+- Build Libft as `external/libft/libft/libft.a`
 - Compile all `src/*.c`
 - Produce the `push_swap` executable
 
@@ -293,7 +313,7 @@ At the root of the project:
 - `Makefile`: builds the project and `libft`.
 - `push_swap`: final executable (after `make`).
 - `include/push_swap.h`: main header file.
-- `libft/`: custom library used by the project.
+- `external/libft/`: pinned Git submodule containing the canonical `42Libft` repository.
 - `src/`: source files, grouped roughly as:
 
 - **Core:**

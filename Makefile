@@ -14,10 +14,11 @@ SRC = src/push_swap.c \
 
 OBJ = $(SRC:.c=.o)
 
-INCLUDE = -Iinclude -Ilibft
-
-LIBFT_DIR = libft
+LIBFT_REPO = external/libft
+LIBFT_DIR = $(LIBFT_REPO)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
+CPPFLAGS = -Iinclude -I$(LIBFT_DIR)
 
 # **************************************************************************** #
 # ****************************** RULES: ************************************** #
@@ -31,7 +32,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
