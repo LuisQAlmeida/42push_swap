@@ -307,20 +307,6 @@ run_exact \
     1 2 3
 
 run_exact \
-    "empty argument" \
-    0 \
-    "" \
-    "" \
-    ""
-
-run_exact \
-    "whitespace-only argument" \
-    0 \
-    "" \
-    "" \
-    "   "
-
-run_exact \
     "INT_MIN" \
     0 \
     "" \
@@ -365,6 +351,48 @@ run_exact \
     +1 0
 
 printf '\n=== INVALID INPUT ===\n'
+
+run_exact \
+    "empty argument" \
+    1 \
+    "" \
+    $'Error\n' \
+    ""
+
+run_exact \
+    "whitespace-only argument" \
+    1 \
+    "" \
+    $'Error\n' \
+    "   "
+
+run_exact \
+    "empty argument after valid value" \
+    1 \
+    "" \
+    $'Error\n' \
+    1 ""
+
+run_exact \
+    "invalid token in quoted argument" \
+    1 \
+    "" \
+    $'Error\n' \
+    "1 abc 2"
+
+run_exact \
+    "overflow in quoted argument" \
+    2 \
+    "" \
+    $'Error\n' \
+    "1 2147483648 2"
+
+run_exact \
+    "very large integer" \
+    2 \
+    "" \
+    $'Error\n' \
+    999999999999999999999999999999999999999
 
 run_exact \
     "duplicate values" \

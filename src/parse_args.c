@@ -1,29 +1,43 @@
 #include "push_swap.h"
 
+static void	parse_node(t_stacks *stacks, char **nodes, int i)
+{
+	int		value;
+	t_node	*node;
+	t_error	error;
+
+	error = ft_atoi_ps(nodes[i], &value);
+	if (error != ERR_NONE)
+	{
+		ft_split_free(nodes);
+		error_exit(stacks, error);
+	}
+	node = node_init(value);
+	if (!node)
+	{
+		ft_split_free(nodes);
+		error_exit(stacks, ERR_MALLOC);
+	}
+	stack_push_bot(&stacks->a, node);
+}
+
 static void	parse_single_arg(t_stacks *stacks, char *str)
 {
 	int		i;
-	int		value;
 	char	**nodes;
-	t_node	*node;
 
 	nodes = ft_split(str, ' ');
 	if (!nodes)
 		error_exit(stacks, ERR_MALLOC);
+	if (!nodes[0])
+	{
+		ft_split_free(nodes);
+		error_exit(stacks, ERR_PARSE);
+	}
 	i = 0;
 	while (nodes[i])
 	{
-		if (nodes[i][0] != '\0')
-		{
-			value = ft_atoi_ps(nodes[i], stacks);
-			node = node_init(value);
-			if (!node)
-			{
-				ft_split_free(nodes);
-				error_exit(stacks, ERR_MALLOC);
-			}
-			stack_push_bot(&stacks->a, node);
-		}
+		parse_node(stacks, nodes, i);
 		i++;
 	}
 	ft_split_free(nodes);
