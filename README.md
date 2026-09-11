@@ -2,409 +2,420 @@
 
 [![CI](https://github.com/LuisQAlmeida/42push_swap/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/LuisQAlmeida/42push_swap/actions/workflows/ci.yml)
 
-## Description
+> Part of my [42 Common Core portfolio](https://github.com/LuisQAlmeida/42Portfolio).
 
-`push_swap` is a 42 project whose goal is to sort a list of integers using **two stacks** (`a` and `b`) and a very limited set of allowed operations:
+A C sorting project that generates a valid sequence of constrained stack
+operations using small-input routines, index compression, and binary radix sort.
 
-- `sa`, `sb`, `ss`: swap the top elements
-- `pa`, `pb`: push between stacks
-- `ra`, `rb`, `rr`: rotate (top element goes to bottom)
-- `rra`, `rrb`, `rrr`: reverse rotate (bottom element goes to top)
+## Overview
 
-The challenges are:
+`push_swap` sorts a sequence of unique signed integers using two stacks,
+`a` and `b`, and a deliberately restricted operation set.
 
-- **Always produce a correct sorting sequence**
-- **Minimize the number of operations**, especially on:
-  - up to 3 numbers
-  - up to 5 numbers
-  - 100 numbers
-  - 500 numbers
+The program does not print the sorted values themselves. Instead, it writes the
+sequence of stack operations required to transform the original input into a
+state where stack `a` is sorted in ascending order and stack `b` is empty.
 
-This implementation focuses on:
+The maintained implementation focuses on:
 
-- A **parser** that accepts integers via multiple arguments and/or quoted strings.
-- **Error checking** for invalid input, duplicates, and integer overflows.
-- A **data structure design** using a doubly-linked list for stacks.
-- A sorting strategy based on:
-  - Optimized small-case sorts (`<= 3` and `<= 5` elements).
-  - **Index compression** + **binary radix sort** on the compressed indices for larger inputs.
+- validated integer parsing across separate and quoted arguments;
+- explicit error handling and allocation cleanup;
+- doubly linked stack structures;
+- dedicated sorting logic for inputs of up to five values;
+- index compression for arbitrary signed integer values;
+- binary radix sorting for larger inputs;
+- deterministic regression testing and continuous integration.
 
----
+The original completed-project state is preserved by the annotated
+`portfolio-baseline-2026-09` tag.
 
-## Instructions
+## Allowed operations
 
-### Requirements
+| Operation | Behaviour |
+| --- | --- |
+| `sa` | Swap the first two elements of stack `a` |
+| `sb` | Swap the first two elements of stack `b` |
+| `ss` | Apply the swap operation to both stacks |
+| `pa` | Push the top element of `b` onto `a` |
+| `pb` | Push the top element of `a` onto `b` |
+| `ra` | Rotate stack `a` upward |
+| `rb` | Rotate stack `b` upward |
+| `rr` | Apply the rotate operation to both stacks |
+| `rra` | Reverse rotate stack `a` |
+| `rrb` | Reverse rotate stack `b` |
+| `rrr` | Apply the reverse-rotate operation to both stacks |
 
-- Linux environment
-- `make`
-- `cc` (or another C compiler compatible with `cc`)
-- Git
-- Libft, provided through the canonical [`42Libft`](https://github.com/LuisQAlmeida/42Libft) repository and pinned as a Git submodule under `external/libft`
+Operations that cannot act on the required stack state safely become no-ops or,
+for the maintained combined helpers, delegate to the valid single-stack
+operation.
 
-### Clone
+## Repository structure
 
-Clone the repository together with its pinned Libft dependency:
+```text
+42push_swap/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── external/
+│   └── libft/              # pinned 42Libft Git submodule
+├── include/
+│   └── push_swap.h
+├── src/
+│   ├── error_utils.c
+│   ├── index_utils.c
+│   ├── node_utils.c
+│   ├── parse_args.c
+│   ├── parse_utils.c
+│   ├── push_ops.c
+│   ├── push_swap.c
+│   ├── rot_ops.c
+│   ├── rrot_ops.c
+│   ├── sort_radix.c
+│   ├── sort_small.c
+│   ├── stack_utils.c
+│   ├── swap_ops.c
+│   └── validation_utils.c
+├── tests/
+│   └── regression.sh
+├── tools/
+│   └── checker_linux
+├── Doxyfile
+├── Makefile
+├── LICENSE
+└── README.md
+```
+
+## Dependency management
+
+The maintained portfolio version uses the canonical
+[`42Libft`](https://github.com/LuisQAlmeida/42Libft) repository as a Git
+submodule under:
+
+```text
+external/libft
+```
+
+The dependency is pinned to the `42Libft v1.0.0` release commit:
+
+```text
+0227823923ca15b580a481c3fb929d7f1382f545
+```
+
+Clone the repository together with the pinned dependency:
 
 ```bash
 git clone --recurse-submodules git@github.com:LuisQAlmeida/42push_swap.git
 cd 42push_swap
 ```
 
-If the repository was cloned without its submodules, initialize them with:
+If the repository has already been cloned without submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-The maintained portfolio version uses the `v1.0.0` release of the canonical
-`42Libft` repository. The original completed-project dependency layout remains
-preserved by the `portfolio-baseline-2026-09` tag.
+The academic dependency layout that existed before portfolio modernization is
+preserved by `portfolio-baseline-2026-09`.
 
-### Compilation
+## Build
 
-From the project root (the directory containing the `Makefile`):
+### Requirements
+
+- Linux or another compatible Unix-like environment;
+- `make`;
+- a C compiler compatible with the project flags;
+- Git for cloning the Libft submodule.
+
+Build with the default compiler:
 
 ```bash
 make
 ```
 
-This will:
+The maintained Makefile:
 
-- Build Libft as `external/libft/libft/libft.a`
-- Compile all `src/*.c`
-- Produce the `push_swap` executable
+- compiles the project with `-Wall -Wextra -Werror`;
+- builds the pinned Libft dependency;
+- tracks the project and Libft public headers as object prerequisites;
+- avoids unnecessary relinking when the build inputs have not changed.
 
-Useful Makefile targets:
-
-```bash
-make        # build push_swap
-make clean  # remove object files
-make fclean # remove object files and push_swap binary (and clean libft)
-make re     # fclean + full rebuild
-```
-
-> The Makefile is written so that repeated `make` calls do **not** relink if nothing has changed.
-
-### Usage
-
-Basic usage:
+Useful targets:
 
 ```bash
-./push_swap <list of integers>
+make
+make clean
+make fclean
+make re
 ```
 
-Examples:
+A different compatible compiler can be selected through `CC`, for example:
 
-- Separate arguments:
 ```bash
-./push_swap 2 1 3
+make CC=clang
 ```
 
-- Mixed with quotes
+## Usage
+
+Pass integers as separate arguments:
+
 ```bash
-./push_swap "3 2 1"
-```
-```bash
-./push_swap 4 "3 2" 1
+./push_swap 4 2 5 1 3
 ```
 
-The program outputs a sequence of operations to **stdout**, one per line, for example:
+Quoted groups are also supported:
+
+```bash
+./push_swap "4 2 5" 1 3
+```
+
+For unsorted valid input, the program prints one operation per line:
 
 ```text
-sa
 pb
 ra
-...
+pa
 ```
 
-If the input is already sorted or contains less than two numbers, it prints **nothing**.
+Already sorted input and a call without arguments produce no output.
 
-On **error**, the program prints:
+Invalid input writes:
 
 ```text
 Error
 ```
 
-to **stderr** and exits with a non-zero status.
+to standard error and exits with a non-zero status.
 
-#### Using `checker_linux` for tests
+Rejected input includes:
 
-The supplied Linux checker is stored under `tools/`:
+- non-numeric tokens;
+- duplicate values;
+- values outside the signed `int` range;
+- sign-only tokens;
+- empty arguments;
+- whitespace-only arguments.
 
-```bash
-ARG="3 2 1" && ./push_swap $ARG | ./tools/checker_linux $ARG
-```
+`INT_MIN` and `INT_MAX` are accepted.
 
-You should see:
+## Implementation
 
-```text
-OK
-```
+### Data model
 
-Another example with random numbers:
+Each stack is represented by a doubly linked list.
 
-```bash
-ARG=$(seq 1 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | ./tools/checker_linux $ARG
-```
+A node stores:
 
-#### Reproducible regression suite
+- the original integer value;
+- a compressed sorting index;
+- links to the previous and next nodes.
 
-The maintained repository includes a deterministic regression suite at:
+`t_stack` stores the current size and direct pointers to both the top and bottom
+nodes. `t_stacks` groups stacks `a` and `b`.
 
-```text
-tests/regression.sh
-```
+### Parsing and error handling
 
-Run it from the repository root with the default compiler:
+Each command-line argument is split on space characters through Libft's
+`ft_split()`.
+
+`ft_atoi_ps()` validates and converts each token without terminating the process
+itself. It reports a `t_error` result to the caller, which keeps ownership of
+temporary parser allocations and can release them before calling
+`error_exit()`.
+
+Numeric overflow is detected before the intermediate arithmetic can exceed the
+supported integer range.
+
+After all values are parsed, the stack is checked for duplicates.
+
+Fatal errors clear both stack structures, write `Error\n` to standard error and
+exit using the corresponding error code.
+
+### Index compression
+
+The sorting algorithms operate on compressed indices rather than directly on
+the original integer values.
+
+The implementation:
+
+1. copies stack values into a temporary array;
+2. sorts that array using insertion sort;
+3. finds the sorted position of each stack value;
+4. stores that position as the node's index.
+
+For `n` values, insertion sorting is `O(n²)` in the worst case. Assigning
+indices currently performs linear searches for each node and is also `O(n²)`.
+
+The index-compression stage therefore has overall `O(n²)` time complexity.
+
+### Small inputs
+
+Inputs of up to three values are handled by `sort_three()` using direct
+comparisons of compressed indices.
+
+For four or five values, `sort_five()` repeatedly moves the smallest index to
+stack `b`, sorts the remaining values with `sort_three()`, then restores the
+removed values with `pa`.
+
+### Binary radix phase
+
+Inputs larger than five values use a least-significant-bit-first binary radix
+sort over the compressed indices.
+
+For each required bit position:
+
+1. inspect the index at the top of stack `a`;
+2. push values whose current bit is `0` to stack `b`;
+3. rotate values whose current bit is `1` within stack `a`;
+4. restore all values from `b` to `a`;
+5. continue with the next bit.
+
+With indices in the range `0..n-1`, the radix phase processes `O(log n)` bit
+positions and `O(n)` elements per position, giving that phase `O(n log n)`
+time complexity.
+
+Because the current index-compression stage is `O(n²)`, the complete maintained
+implementation is overall `O(n²)`.
+
+## v1.0.0 algorithm scope
+
+The first maintained portfolio release intentionally preserves the project's
+binary-radix sorting strategy.
+
+The implementation emphasizes deterministic correctness, clear stack
+operations, and a reproducible validation path rather than aggressive
+operation-count optimization.
+
+Further work on operation-count reduction, alternative sorting strategies, and
+algorithm comparison is intentionally left for later project evolution rather
+than being folded into the initial portfolio release.
+
+## Testing
+
+The repository includes a deterministic regression suite:
 
 ```bash
 ./tests/regression.sh
 ```
 
-The same suite can be validated independently with Clang:
+The current suite contains **30 checks** covering:
+
+- accepted argument forms;
+- integer boundaries;
+- invalid syntax;
+- empty and whitespace-only arguments;
+- duplicate detection;
+- integer overflow, including very large numeric input;
+- exact stdout, stderr, and exit-status behaviour;
+- emitted operation syntax;
+- deterministic small-input sorting;
+- the radix path;
+- mixed signed values;
+- independent replay of generated operations;
+- verification that stack `a` becomes sorted and stack `b` becomes empty;
+- supplementary validation through `tools/checker_linux` when available.
+
+Run the same suite with Clang:
 
 ```bash
 CC=clang ./tests/regression.sh
 ```
 
-The suite checks:
+The repository-owned operation replay is the primary sorting oracle. The
+provided Linux checker is supplementary validation.
 
-- accepted argument forms and integer boundaries;
-- invalid syntax, duplicates and integer overflow;
-- exact stdout, stderr and exit-status behaviour;
-- emitted push_swap operation syntax;
-- replay of the emitted operations to verify that stack A becomes sorted and
-  stack B becomes empty;
-- deterministic small sorting cases and the radix path;
-- a reproducible 100-element input;
-- compatibility with the supplied `tools/checker_linux` validation binary when
-  it is available.
+GitHub Actions runs the suite with both `cc` and `clang`, initializes the Libft
+submodule recursively, verifies the exact Libft revision, and checks that
+validation leaves no generated build artefacts or repository modifications.
 
-Operation replay is implemented by the repository-owned test suite itself, so
-the external checker is supplementary validation rather than the source of the
-test oracle.
+## Manual checker usage
 
-The suite rebuilds the project using the selected compiler and removes generated
-build artefacts when validation finishes.
-
-#### Counting operations
-
-To see both the operations and how many there are:
+After building the project:
 
 ```bash
-ARG=$(seq 1 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | tee /dev/tty | wc -l
+ARG="3 2 1"
+./push_swap $ARG | ./tools/checker_linux $ARG
 ```
 
----
+A correct sequence produces:
 
-## Implementation Overview
-
-### Data Structures
-
-Stacks are stored as a **doubly-linked list** with a `t_stack` wrapper:
-
-```c
-typedef struct s_node
-{
-    int             value;
-    int             index;
-    struct s_node   *next;
-    struct s_node   *prev;
-}   t_node;
-
-typedef struct s_stack
-{
-    int     size;
-    t_node  *top;
-    t_node  *bot;
-}   t_stack;
-
-typedef struct s_stacks
-{
-    t_stack a;
-    t_stack b;
-}   t_stacks;
+```text
+OK
 ```
 
-- `value`: original integer value.
-- `index`: compressed index (`0..n-1` after compression).
-- `top` / `bot`: pointers to the top and bottom nodes.
-- `size`: number of elements in the stack.
+To inspect the emitted operation count:
 
-### Parsing & Validation
+```bash
+ARG=$(seq 1 100 | sort -R | tr '\n' ' ')
+./push_swap $ARG | wc -l
+```
 
-Input is parsed as follows:
+## Doxygen reference
 
-- Each `argv[i]` is either a single number, or a **string containing multiple numbers separated by spaces** (handled via `ft_split` from `libft`).
-- Each token is passed through a custom `ft_atoi_ps` which:
-  - Skips leading whitespace.
-  - Handles optional `+` / `-`.
-  - Rejects invalid formats (`""`, `"+"`, `"-"`, `"1a"`, `"1  2x"`, etc.).
-  - Detects **overflow** (values outside `INT_MIN..INT_MAX`).
-- All valid values are pushed into stack `a` from bottom to top.
-- After parsing, `check_dups` scans for duplicate values and triggers an error if any are found.
+The maintained public and cross-module interface is documented in
+`include/push_swap.h`.
 
-On **any** parsing or allocation error, `error_exit`:
+Generate the HTML reference with:
 
-- Frees both stacks.
-- Prints `"Error"` to **stderr**.
-- Exits with an appropriate error code.
+```bash
+doxygen Doxyfile
+```
 
-### Sorting Strategy
+The generated documentation is written under:
 
-1. **Early exit**  
-   After parsing:
-   - If `a.size == 0`: nothing to sort.
-   - If `check_sort(&a)` is true: already sorted, no operations printed.
+```text
+docs/html/
+```
 
-2. **Index compression**
+Generated Doxygen output is intentionally not versioned.
 
-   Before sorting, the code compresses values to indices:
+## Historical preservation
 
-   - Copy stack `a` values into an array.
-   - Sort the array (using insertion sort).
-   - For each node in stack `a`, set `node->index` to the position of its `value` in the sorted array.
-   - Result: indices are in the range `[0, n - 1]`.
+The annotated tag:
 
-   This makes radix sort simpler and independent of the original integer range. Could also be used with other sorting algorithms.
+```text
+portfolio-baseline-2026-09
+```
 
-3. **Small cases**
+preserves the repository state before professional portfolio modernization.
 
-   - If `a.size <= 3` - `sort_three(&stacks)`:
-     - Uses hard-coded logic on the 3 indices to sort in minimal moves.
-   - If `a.size <= 5` - `sort_five(&stacks)`:
-     - Repeatedly:
-       - Move the smallest element to the top of `a` (with minimal `ra` / `rra`),
-       - `pb` to stack `b`.
-     - Sort the remaining 3 elements with `sort_three`.
-     - `pa` everything back from `b` to `a`.
-
-4. **Larger cases: Binary radix sort on indices**
-
-   For inputs larger than 5, a **binary radix sort** is applied to the `index` field:
-
-   - Compute the number of bits needed:
-     ```c
-     max_idx = a.size - 1;
-     bit_count = 0;
-     while ((max_idx >> bit_count) != 0)
-         bit_count++;
-     ```
-   - For each bit position `cur_bit` from `0` to `bit_count - 1`:
-     - For each element in `a` (fixed size per pass):
-       - Look at `idx = a.top->index;`
-       - If the `cur_bit`-th bit of `idx` is `0` then `pb` (push to `b`).
-       - Else `ra` (rotate in `a`).
-     - After scanning all elements, push everything back from `b` to `a` with `pa` in a loop.
-   - After all bits are processed, stack `a` is sorted in ascending order of `index` (and thus of `value`).
-
-This approach gives:
-
-- Deterministic behavior,
-- Good time complexity around **O(n log n)**,
-- Reasonable operation counts for 100 and 500 elements for evaluation.
-
----
-
-## Project Structure
-
-At the root of the project:
-
-- `Makefile`: builds the project and `libft`.
-- `push_swap`: final executable (after `make`).
-- `include/push_swap.h`: main header file.
-- `external/libft/`: pinned Git submodule containing the canonical `42Libft` repository.
-- `src/`: source files, grouped roughly as:
-
-- **Core:**
-  - `push_swap.c`: `main` with sorting selection.
-  - `stack_utils.c`: `stack_init`, `stack_clear`, etc.
-  - `node_utils.c`: node creation and push/pop helpers.
-  - `error_utils.c`: `error_exit`.
-
-- **Parsing & validation:**
-  - `parse_utils.c`: `ft_atoi_ps`, `ft_split_free`, internal helpers (`ft_isspace`, `spaces_sign`).
-  - `parse_args.c`: argument parsing and filling stack `a`.
-  - `validation_utils.c`: `check_dups`, `check_sort`.
-
-- **Indexing & sorting:**
-  - `index_utils.c`: index compression (stack to array, sort, assign indices).
-  - `sort_small.c`: `sort_three`, `sort_five`.
-  - `sort_radix.c`: `sort_radix` and bit-count helper.
-
-- **Operations:**
-  - `swap_ops.c`: `sa`, `sb`, `ss`.
-  - `push_ops.c`: `pa`, `pb`.
-  - `rot_ops.c`: `ra`, `rb`, `rr`.
-  - `rrot_ops.c`: `rra`, `rrb`, `rrr`.
-
----
+The maintained `main` branch adds testing, CI, dependency management,
+documentation, build-system maintenance, and parser robustness while retaining
+the project's original sorting strategy for the first portfolio release.
 
 ## Resources
 
-### C Language & General Concepts
+Useful references for the concepts exercised by the project include:
 
-- **The C Programming Language – Kernighan & Ritchie (K&R)**  
-  Classic reference book for C; useful for understanding pointers, memory behavior, and idiomatic C.
+- *The C Programming Language*, Kernighan and Ritchie;
+- [42 Norminette](https://github.com/42School/norminette);
+- [Insertion Sort](https://www.geeksforgeeks.org/insertion-sort/);
+- [Radix Sort](https://www.geeksforgeeks.org/radix-sort/);
+- [Data Structures](https://www.geeksforgeeks.org/data-structures/).
 
-- **42 Norm / Norminette (official repo)**  
-  <https://github.com/42School/norminette>  
-  Official repository for the norminette tool and Norm PDF.
+These resources were used for language, data-structure, algorithm, and
+evaluation concepts rather than as sources of project implementations.
 
-### Data Structures & Algorithms
+## AI usage
 
-- **GeeksforGeeks – Data Structures (Linked Lists, Stacks, Queues)**  
-  <https://www.geeksforgeeks.org/data-structures/>  
-  Conceptual explanations and examples of basic data structures similar to those used in this project.
+AI-assisted tools were used as learning and engineering support during parts of
+the original project work and later portfolio maintenance.
 
-- **Insertion Sort**  
-  <https://www.geeksforgeeks.org/insertion-sort/>  
-  Used as a simple, clear algorithm for sorting the temporary array in index compression.
+Their use included:
 
-- **Radix Sort (idea and variants)**  
-  <https://www.geeksforgeeks.org/radix-sort/>  
-  Describes radix sorting by digits/bits; this project uses a binary, index-based variant.
+- explaining C, data-structure, and algorithm concepts;
+- discussing sorting approaches and complexity;
+- reviewing error handling and allocation ownership;
+- helping reason about build and dependency behaviour;
+- designing regression and validation scenarios;
+- reviewing and restructuring technical documentation.
 
-- **Big-O Notation & Complexity**  
-  - Big-O Cheat Sheet: <https://www.bigocheatsheet.com/>  
-  - Asymptotic Analysis overview: <https://www.geeksforgeeks.org/analysis-of-algorithms-set-4-analysis-of-loops/>  
-  These were used to understand and reason about complexity (time and space) of the different sorting approaches.
+Portfolio-maintenance changes were reviewed against the repository's actual
+implementation and validated through local builds, regression testing, CI, and
+targeted memory checks.
 
-### push_swap-Specific (Conceptual Help)
+The `portfolio-baseline-2026-09` tag preserves the completed-project state from
+before this later maintenance work.
 
-*(Used for understanding typical strategies and pitfalls, not for copying code.)*
+## License
 
-- **push_swap strategy explanations and common patterns**  
-  - “push_swap tutorial” (Ayogun):  
-    <https://medium.com/@ayogun/push-swap-tutorial-fa746e6aba1e>
-
-These materials helped to:
-
-- Understand the idea of index compression,
-- Compare different approaches (small sorts, radix, chunk strategies),
-- Clarify expectations for move counts on 100 and 500 elements.
-
-### Additional Tools (For Testing)
-- **Random number generator**
-  - Calculator.net: <https://www.calculator.net/random-number-generator.html>
-  Website with tool to generate random numbers.
-
-### AI Usage
-
-AI (ChatGPT - GPT-5.1) was used as a **learning and design assistant** during the development of this project.  
-In particular, AI was used for:
-
-- Clarifying theoretical concepts:
-  - Time & space complexity (Big O / Ω / Θ).
-  - Differences between insertion sort, bubble sort, and radix sort.
-  - How binary representation relates to radix sorting by bits.
-- Helping design and structure the project.
-- Reviewing and refining.
-
-All final code was:
-
-- Written and adapted by me,
-- Reviewed and tested with `checker_linux` and random input,
-- Verified for Norm compliance and project rules.
-
-AI was used as a tool for explanations, brainstorming, and feedback — not as a source to copy full implementations from.
+See [LICENSE](LICENSE).
