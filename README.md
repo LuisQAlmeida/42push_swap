@@ -278,16 +278,27 @@ implementation is overall `O(n²)`.
 
 ## v1.0.0 algorithm scope
 
-The first maintained portfolio release intentionally preserves the project's
-binary-radix sorting strategy.
+The first maintained portfolio release intentionally preserves the binary radix
+strategy selected for the original project.
 
-The implementation emphasizes deterministic correctness, clear stack
-operations, and a reproducible validation path rather than aggressive
-operation-count optimization.
+During the academic project, this algorithm was chosen as a pragmatic trade-off
+between correctness, implementation complexity, available development time, and
+the need to continue progressing through the remaining 42 Common Core projects.
 
-Further work on operation-count reduction, alternative sorting strategies, and
-algorithm comparison is intentionally left for later project evolution rather
-than being folded into the initial portfolio release.
+The objective was therefore to deliver a reliable and understandable sorting
+implementation within the available project time rather than to maximize the
+operation-count score.
+
+This `v1.0.0` release preserves that engineering decision instead of
+retroactively replacing the original algorithm during portfolio maintenance.
+
+Future project evolution is intended to explore:
+
+- alternative `push_swap` sorting strategies;
+- operation-count optimization;
+- comparative benchmarks on representative input sizes;
+- algorithmic and implementation trade-offs;
+- before-and-after comparison against the `v1.0.0` radix baseline.
 
 ## Testing
 
@@ -397,24 +408,43 @@ evaluation concepts rather than as sources of project implementations.
 
 ## AI usage
 
-AI-assisted tools were used as learning and engineering support during parts of
-the original project work and later portfolio maintenance.
+The original academic implementation and its core project decisions were
+developed by me as part of the 42 Common Core.
 
-Their use included:
+AI-assisted tools were used as supporting tools during learning and later
+portfolio maintenance, rather than as a substitute for understanding or project
+ownership.
+
+During the project and subsequent review, AI support was used for areas such as:
 
 - explaining C, data-structure, and algorithm concepts;
-- discussing sorting approaches and complexity;
-- reviewing error handling and allocation ownership;
-- helping reason about build and dependency behaviour;
+- discussing alternative sorting approaches and complexity;
+- reviewing error handling, memory ownership, and edge cases;
+- reasoning about build and dependency behaviour;
 - designing regression and validation scenarios;
-- reviewing and restructuring technical documentation.
+- reviewing technical documentation.
 
-Portfolio-maintenance changes were reviewed against the repository's actual
-implementation and validated through local builds, regression testing, CI, and
-targeted memory checks.
+During portfolio modernization, AI was also used to help structure a more
+professional and repeatable repository workflow, including:
+
+- repository audits;
+- issue and pull-request scoping;
+- regression and CI planning;
+- documentation organization;
+- Doxygen structure;
+- dependency and build-system review;
+- consistency across the wider 42 portfolio.
+
+Changes introduced during portfolio maintenance were reviewed against the
+actual implementation and validated through local builds, regression testing,
+continuous integration, targeted memory checks, and repository-state audits.
+
+This organization is intentionally being developed as a reusable foundation for
+future software projects, while keeping the underlying implementation,
+engineering decisions, and project understanding under my ownership.
 
 The `portfolio-baseline-2026-09` tag preserves the completed-project state from
-before this later maintenance work.
+before this later portfolio-maintenance work.
 
 ## License
 
