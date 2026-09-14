@@ -90,3 +90,6 @@ dkms.conf
 
 # Generated push_swap executable
 /push_swap
+
+# Doxygen
+/docs/
