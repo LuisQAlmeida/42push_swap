@@ -7,6 +7,26 @@
 A C sorting project that generates a valid sequence of constrained stack
 operations using small-input routines, index compression, and binary radix sort.
 
+> **42 Common Core:** 84/100 · Subject v10.1 · [Academic record & evaluation](docs/academic/README.md)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Allowed operations](#allowed-operations)
+- [Repository structure](#repository-structure)
+- [Dependency management](#dependency-management)
+- [Build](#build)
+- [Usage](#usage)
+- [Implementation](#implementation)
+- [v1.0.0 algorithm scope](#v100-algorithm-scope)
+- [Testing](#testing)
+- [Manual checker usage](#manual-checker-usage)
+- [Doxygen reference](#doxygen-reference)
+- [Historical preservation](#historical-preservation)
+- [Resources](#resources)
+- [AI Usage](#ai-usage)
+- [License](#license)
+
 ## Overview
 
 `push_swap` sorts a sequence of unique signed integers using two stacks,
@@ -406,45 +426,47 @@ Useful references for the concepts exercised by the project include:
 These resources were used for language, data-structure, algorithm, and
 evaluation concepts rather than as sources of project implementations.
 
-## AI usage
+## AI Usage
 
-The original academic implementation and its core project decisions were
-developed by me as part of the 42 Common Core.
+AI assistance has been used in two distinct phases of this repository's
+history.
 
-AI-assisted tools were used as supporting tools during learning and later
-portfolio maintenance, rather than as a substitute for understanding or project
-ownership.
+### Academic development
 
-During the project and subsequent review, AI support was used for areas such as:
+During the original academic project, AI was used as a learning, design, and
+review aid.
 
-- explaining C, data-structure, and algorithm concepts;
-- discussing alternative sorting approaches and complexity;
-- reviewing error handling, memory ownership, and edge cases;
-- reasoning about build and dependency behaviour;
-- designing regression and validation scenarios;
-- reviewing technical documentation.
+It supported activities such as:
 
-During portfolio modernization, AI was also used to help structure a more
-professional and repeatable repository workflow, including:
+- clarifying algorithmic and complexity concepts;
+- understanding and comparing sorting approaches;
+- understanding binary radix sorting;
+- reasoning about project structure and implementation design;
+- reviewing ideas and implementation decisions;
+- brainstorming alternatives and receiving feedback.
 
-- repository audits;
-- issue and pull-request scoping;
-- regression and CI planning;
-- documentation organization;
-- Doxygen structure;
-- dependency and build-system review;
-- consistency across the wider 42 portfolio.
+AI was not used as a substitute for understanding the project or as a source
+of a complete implementation to copy into the repository.
 
-Changes introduced during portfolio maintenance were reviewed against the
-actual implementation and validated through local builds, regression testing,
-continuous integration, targeted memory checks, and repository-state audits.
+### Portfolio modernization
 
-This organization is intentionally being developed as a reusable foundation for
-future software projects, while keeping the underlying implementation,
-engineering decisions, and project understanding under my ownership.
+During the later professional modernization of the repository, AI assistance
+was used more extensively as an engineering support tool.
 
-The `portfolio-baseline-2026-09` tag preserves the completed-project state from
-before this later portfolio-maintenance work.
+It contributed to activities such as:
+
+- repository and source-code audits;
+- maintainability review;
+- parser and error-path hardening support;
+- regression-test design;
+- CI and GitHub workflow support;
+- dependency modernization;
+- Doxygen and documentation work;
+- validation procedures;
+- cross-repository portfolio consistency.
+
+AI-assisted suggestions were reviewed against the actual implementation and
+validated before integration.
 
 ## License
 
